@@ -1,6 +1,6 @@
 # Portfolio
 
-Marlon Fuentes's personal site: one hand-coded page in the Swiss International Style.
+Marlon Fuentes's personal site: one hand-coded page in the Swiss International Style :)
 
 ## What's in here
 
