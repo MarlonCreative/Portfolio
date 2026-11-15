@@ -22,4 +22,4 @@ Marlon Fuentes's personal site: one hand-coded page in the Swiss International S
 - 12-column grid; labels sit in columns 1–3, content in 4–12.
 - Two typefaces: Helvetica (Inter as fallback) and IBM Plex Mono.
 - Three colours: ink `#111`, paper `#F5F3EF`, signal red `#E2231A`.
-- The record spins at a true 33⅓ rpm (1.8 s per turn) and speeds up to 45 rpm on hover.
+- The orbit in the hero: agents circling a red core; they speed up on hover.
