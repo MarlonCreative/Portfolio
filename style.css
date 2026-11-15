@@ -1,0 +1,277 @@
+/* =========================================================
+   Marlon Fuentes — Portfolio
+   Swiss International Style: 12-column grid, flush-left type,
+   black + white + one red. Every size and colour lives below
+   in :root so the whole site can be re-tuned in one place.
+   ========================================================= */
+
+:root {
+  --ink:    #111111;
+  --paper:  #F5F3EF;   /* warm off-white, like printed poster stock */
+  --red:    #E2231A;   /* Swiss signal red */
+  --grey:   #777777;
+
+  --sans: "Helvetica Neue", Helvetica, "Inter", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --gutter: 24px;
+  --margin: clamp(20px, 4vw, 64px);
+
+  /* Type scale: only a few sizes, used everywhere */
+  --t-small: 13px;
+  --t-body:  18px;
+  --t-big:   clamp(26px, 3.2vw, 44px);
+  --t-huge:  clamp(56px, 10vw, 160px);
+}
+
+/* ---------- Reset & base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, ol, ul { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--red); }
+a:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+.mono {
+  font-family: var(--mono);
+  font-size: var(--t-small);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* ---------- The grid ---------- */
+.wrap { max-width: 1600px; margin: 0 auto; padding: 0 var(--margin); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--gutter);
+}
+/* Four equal 3-column cells, used by header and footer */
+.c1 { grid-column: 1 / 4; }
+.c2 { grid-column: 4 / 7; }
+.c3 { grid-column: 7 / 10; }
+.c4 { grid-column: 10 / 13; }
+
+/* ---------- Header ---------- */
+.topbar {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  align-items: start;
+}
+.topbar nav { display: flex; flex-direction: column; }
+.topbar nav a::before { content: "→ "; color: var(--red); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding-top: 8vh;
+  padding-bottom: 10vh;
+  overflow: hidden;
+}
+.hero-name {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(72px, 15vw, 260px);
+  font-weight: 700;
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  /* White text + "difference" blending: reads as black on paper,
+     flips to white wherever a letter crosses the record. */
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+/* The record — concentric grooves drawn with one gradient */
+.record {
+  position: absolute;
+  z-index: 1;
+  top: 4vh;
+  right: calc(var(--margin) * -1 + 2vw);
+  width: clamp(260px, 42vw, 640px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at center,
+      #1a1a1a 0 2px, #0c0c0c 2px 4px);
+  box-shadow: inset 0 0 0 1px #000;
+  display: grid;
+  place-items: center;
+  animation: spin 1.8s linear infinite;   /* 60s ÷ 33⅓ = 1.8s */
+}
+.record:hover { animation-duration: 1.333s; } /* hover = 45 rpm */
+.record-label {
+  width: 34%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: var(--t-small);
+  text-transform: uppercase;
+  position: relative;
+}
+.record-label span {
+  position: absolute;
+  left: 0; right: 0;
+  text-align: center;
+}
+.record-label span:first-child { top: 24%; }
+.record-label span:last-child  { bottom: 24%; }
+.record-label::after {             /* the spindle hole */
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 10px; height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--paper);
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hero-meta {
+  position: relative;
+  z-index: 2;
+  margin-top: 8vh;
+  row-gap: 24px;
+}
+.kicker   { grid-column: 1 / 4; color: var(--ink); }
+.statement {
+  grid-column: 4 / 11;
+  font-size: var(--t-big);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  background: var(--paper);  /* keeps text legible over the record */
+}
+
+/* ---------- Sections ---------- */
+.section {
+  border-top: 2px solid var(--ink);
+  padding-top: 20px;
+  padding-bottom: 96px;
+}
+.label { grid-column: 1 / 4; }
+.label .num { color: var(--red); margin-right: 8px; }
+.body  { grid-column: 4 / 13; }
+
+.big {
+  font-size: var(--t-big);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.huge {
+  font-size: var(--t-huge);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+}
+.meta { color: var(--grey); margin-top: 16px; }
+
+/* Index table: year / what / who */
+.index li {
+  display: grid;
+  grid-template-columns: 2fr 6fr 3fr;
+  column-gap: var(--gutter);
+  padding: 14px 0;
+  border-bottom: 1px solid #cfcac2;
+  align-items: baseline;
+}
+.index li:first-child { border-top: 1px solid #cfcac2; }
+.index .yr  { color: var(--red); }
+.index .who { color: var(--grey); text-align: right; }
+.index .what { font-weight: 500; }
+.index-compact { margin-top: 48px; }
+.index-compact li { padding: 10px 0; font-size: 16px; }
+.index-compact a.who:hover { color: var(--red); }
+
+/* Build cards */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+}
+.card {
+  background: #fff;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 280px;
+  transition: transform .2s ease;
+}
+.card:hover { transform: translateY(-4px); }
+.card .meta { margin-top: 0; }
+.card h3 {
+  font-size: var(--t-big);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.card .link { margin-top: auto; color: var(--red); }
+
+/* Sound — the one full-red block on the page */
+.section-red {
+  background: var(--red);
+  color: var(--paper);
+  border-top-color: var(--red);
+  padding-top: 32px;
+  max-width: none;
+  padding-left: max(var(--margin), calc((100vw - 1600px) / 2 + var(--margin)));
+  padding-right: max(var(--margin), calc((100vw - 1600px) / 2 + var(--margin)));
+}
+.section-red .num, .section-red .meta { color: var(--paper); }
+.crates { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+.crates li {
+  border: 1.5px solid var(--paper);
+  border-radius: 999px;
+  padding: 8px 16px;
+}
+
+/* Contact */
+.contact-links { margin-top: 32px; display: flex; gap: 32px; font-size: 16px; }
+.contact-links a { border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+
+/* Footer */
+.footer {
+  border-top: 2px solid var(--ink);
+  padding-top: 16px;
+  padding-bottom: 32px;
+  color: var(--grey);
+}
+
+/* ---------- Small screens: collapse the grid ---------- */
+@media (max-width: 800px) {
+  .c1, .c2, .c3, .c4,
+  .label, .body, .kicker, .statement { grid-column: 1 / -1; }
+  .topbar { row-gap: 12px; }
+  .topbar .c2, .topbar .c3 { display: none; }
+  .topbar nav { flex-direction: row; flex-wrap: wrap; gap: 4px 16px; }
+  .record { top: 3vh; right: -22vw; width: 58vw; }
+  .record-label span { display: none; }
+  .index-compact li { grid-template-columns: 3.5em 1fr auto; }
+  .index-compact .who { text-align: right; }
+  .label { margin-bottom: 24px; }
+  .section { padding-bottom: 64px; }
+  .cards { grid-template-columns: 1fr; }
+  .index li { grid-template-columns: 1fr; row-gap: 4px; }
+  .index .who { text-align: left; }
+  .footer { row-gap: 8px; }
+}
+
+/* Respect people who turn motion off */
+@media (prefers-reduced-motion: reduce) {
+  .record { animation: none; }
+  html { scroll-behavior: auto; }
+  .card { transition: none; }
+}
